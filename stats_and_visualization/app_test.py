@@ -36,8 +36,7 @@ with open("execute_time.txt")  as g:
 date_time = dates.date2num(time_data)   #date2num将日期转换为matplotlib格式
 #fig = plt.figure()#定义一个画布，分辨率设置为80
 plt.subplot(1,2,1)#创建一个1行2列子图，图样绘制在第一块
-plt.plot(date_time,cpu_data)
-plt.plot(color="green",linewidth=1.0,linestyle="--")
+plt.plot(date_time,cpu_data, color="green",linewidth=1.0,linestyle="--")
 plt.title("cpu line")   #设置标题 
 plt.xlabel("time")#设置x标签
 plt.ylabel("cpu")#设置y标签
@@ -47,12 +46,11 @@ plt.ylabel("cpu")#设置y标签
 
 #plt.figure(dpi=80)#定义一个画布，分辨率设置为80
 plt.subplot(1,2,2)#创建一个子图，图样绘制在第二块
-plt.plot(date_time,memory_data)
-plt.plot(color="blue",linewidth=1.0,linestyle="*",label="memory")
+plt.plot(date_time,memory_data, color="blue",linewidth=1.0,linestyle="*",label="memory")
 plt.title("memory line")   #设置标题 
 plt.xlabel("time")#设置x标签
 plt.ylabel("memory")#设置y标签
-#plt.legend(loc="upper right")#设置图例
+plt.legend(loc="upper right")#设置图例
 plt.show()
 
 
