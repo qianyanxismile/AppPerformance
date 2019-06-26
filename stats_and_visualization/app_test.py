@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from datetime import datetime
-import matplotlib.pyplot as plt
-import numpy as np
-from matplotlib import dates
-#from pylab import *
 import os
 from datetime import datetime
+import matplotlib.pyplot as plt
+from matplotlib import dates
 
 
 time_data=[]
@@ -16,8 +13,8 @@ with open("execute_time.txt", "a") as f:
         # 调用top命令
         os.system("adb shell top -n 1 -b|grep com.jifen.qukan>>tmp.txt")
         # 记录时间
-        #f.write(str(datetime.now().timestamp())+"\n")
-        time_data.append(datetime.now())
+        f.write(str(datetime.now().timestamp())+"\n")
+#         time_data.append(datetime.now())
         #f.write("\n")
 
 # 读取提取三列数据
@@ -33,8 +30,8 @@ with open("tmp.txt") as f:
 
 with open("execute_time.txt")  as g:
     for line in g:
-        #datetime.fromtimestamp(float(line.strip()))
-        time_data.append(datetime.now())
+        time_data.append(datetime.fromtimestamp(float(line.strip())))
+#         time_data.append(datetime.now())
 
 date_time = dates.date2num(time_data)   #date2num将日期转换为matplotlib格式
 #fig = plt.figure()#定义一个画布，分辨率设置为80
