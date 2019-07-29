@@ -5,6 +5,7 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 from matplotlib import dates
 from subprocess import Popen
+import matplotlib.ticker as mticker
 import os
 
 
@@ -47,10 +48,10 @@ def gather_statistic_data():
 #         time_data.append(datetime.fromtimestamp(float(line.strip())))
 
 def visualization(x, y, current_number, label_name, title):
-    plt.subplot(1, 2, current_number)
-    plt.plot(x, y, label=label_name, marker='o', markersize=15)
-
-    plt.legend()
+   
+    plt.subplot(2, 2, current_number)
+    plt.plot(x, y, label=label_name, marker='o', markersize=5,color='r')
+    plt.legend(loc="upper right")
     plt.title(title)
 
 
@@ -59,29 +60,14 @@ def main():
     cpu_data, memory_data = gather_statistic_data()
     date_time = dates.date2num(time_data)
     visualization(date_time,  cpu_data, 1, "cpu", "CPU Usage")
-    visualization(date_time, memory_data, 2, "memory", "memory usage")
-
+    plt.gca().yaxis.set_major_formatter(mticker.FormatStrFormatter('%.1f %%'))
     plt.gcf().autofmt_xdate()  # 自动旋转日期标记
-    plt.legend()
     plt.gca().xaxis.set_major_formatter(dates.DateFormatter('%m/%d/%Y %H:%M:%S'))
     plt.gca().xaxis.set_major_locator(dates.DayLocator())
-    plt.show()
-
-
-if __name__ == "__main__":
-    main()
-
-
-def main():
-    time_data = generate_data()
-    cpu_data, memory_data = gather_statistic_data()
-    date_time = dates.date2num(time_data)
-    generate_html(date_time, cpu_data, memory_data, "cpu", "memory")
-    visualization(date_time,  cpu_data, 1, "cpu", "CPU Usage")
-    visualization(date_time, memory_data, 2, "memory", "memory usage")
-
+    
+    visualization(date_time, memory_data, 3, "memory", "memory usage")
+    plt.gca().yaxis.set_major_formatter(mticker.FormatStrFormatter('%.1f MB'))
     plt.gcf().autofmt_xdate()  # 自动旋转日期标记
-    plt.legend()
     plt.gca().xaxis.set_major_formatter(dates.DateFormatter('%m/%d/%Y %H:%M:%S'))
     plt.gca().xaxis.set_major_locator(dates.DayLocator())
     plt.show()
